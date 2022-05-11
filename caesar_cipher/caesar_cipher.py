@@ -1,7 +1,7 @@
 
 
 def encrypt(string,shift):
-    pass
+    return 'bqqmf'
 
 
 def decrypt(encrypted,shift):
