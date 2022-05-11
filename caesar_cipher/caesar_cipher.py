@@ -1,3 +1,6 @@
+import re
+from caesar_cipher.corpus_loader import word_list, name_list
+
 
 abc = 'abcdefghijklmnopqrstuvwxyz'
 
@@ -31,4 +34,23 @@ def decrypt(encrypted, shift):
 
 
 def crack(encrypted):
-    pass
+
+    key = 0
+    percentage = 0
+    for letter in abc:
+        real_words = 0
+        key += 1
+        message = decrypt(encrypted, key)
+        verified_message = message.split(' ')
+
+        for word in verified_message:
+            word = re.sub(r'[^A-Za-z]+', '', word)
+            if word.lower() in word_list or word in name_list:
+                real_words += 1
+            else:
+                pass
+        percentage = int(real_words // len(verified_message) * 100)
+        if percentage >= 50:
+            return message
+    if percentage < 50:
+        return ""
